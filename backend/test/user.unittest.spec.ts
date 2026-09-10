@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { UsersService } from '../src/feature_login/user.service.js';
 import { UsersRepository } from '../src/feature_login/user.repository.js';
 import { AuthService } from '../src/feature_login/auth.service.js';
+import { create } from 'domain';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -52,9 +53,11 @@ describe('AuthService', () => {
   // you don't mock the function you are testing, but mocking de functions the function in authservice calls
   const mockUsersService = {
     findOne: vi.fn(),
+    create: vi.fn()
   };
 
   beforeEach(async () => {
+    vi.clearAllMocks();
     const module = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -87,5 +90,59 @@ describe('AuthService', () => {
     });
 
     expect(mockUsersService.findOne).toHaveBeenCalledWith('Robbin');
+  });
+
+ it('should create an account', async () => {
+    const newUser = {
+      username: 'Robert',
+      email: 'robbintest@example.com',
+      password: '12345',
+    };
+
+    // The user doesnt exist
+    mockUsersService.findOne.mockResolvedValue(undefined);
+
+    // this is what userservice returns
+    mockUsersService.create.mockResolvedValue({
+      id: 3,
+      ...newUser,
+    });
+
+    const result = await service.signUp(newUser);
+
+    expect(result).toEqual({
+      id: 3,
+      username: 'Robert',
+      email: 'robbintest@example.com',
+      password: '12345',
+    });
+
+    expect(mockUsersService.findOne).toHaveBeenCalledWith('Robert');
+
+    expect(mockUsersService.create).toHaveBeenCalledWith(newUser);
+  });
+
+  it('should not create an account if username already exists', async () => {
+    const existingUser = {
+      id: 1,
+      username: 'Robbin',
+      email: 'robbin@example.com',
+      password: '123',
+    };
+
+    const newUser = {
+      username: 'Robbin',
+      email: 'new@example.com',
+      password: '12345',
+    };
+
+    // the username already exists
+    mockUsersService.findOne.mockResolvedValue(existingUser);
+
+    await expect(
+      service.signUp(newUser),
+    ).rejects.toThrow('Username already exists');
+
+    expect(mockUsersService.create).not.toHaveBeenCalled();
   });
 });

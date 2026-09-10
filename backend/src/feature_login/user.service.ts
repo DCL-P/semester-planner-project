@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepository } from './user.repository.js';
+import { CreateUserDto, UsersRepository } from './user.repository.js';
 
 @Injectable()
 export class UsersService {
@@ -9,5 +9,9 @@ export class UsersService {
 
   async findOne(username: string) {
     return this.usersRepository.findOne(username);
+  }
+
+  async create(user: CreateUserDto) {
+    return this.usersRepository.create(user);
   }
 }

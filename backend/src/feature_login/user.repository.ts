@@ -7,6 +7,12 @@ export interface User {
   password: string;
 }
 
+export interface CreateUserDto {
+  username: string;
+  email: string;
+  password: string;
+}
+
 @Injectable()
 export class UsersRepository {
   private readonly users: User[] = [
@@ -26,5 +32,15 @@ export class UsersRepository {
 
   async findOne(username: string): Promise<User | undefined> {
     return this.users.find(user => user.username === username);
+  }
+
+  async create(user: CreateUserDto) : Promise<User> {
+    const newUser: User = {
+      id: this.users.length + 1,
+      ...user   
+    }
+
+    this.users.push(newUser)
+    return newUser
   }
 }
