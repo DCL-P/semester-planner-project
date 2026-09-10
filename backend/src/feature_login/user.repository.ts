@@ -2,30 +2,29 @@ import { Injectable } from '@nestjs/common';
 
 export interface User {
   id: number;
-  name: string;
+  username: string;
   email: string;
+  password: string;
 }
 
 @Injectable()
 export class UsersRepository {
-  private users: User[] = [
+  private readonly users: User[] = [
     {
       id: 1,
-      name: 'Robbin',
+      username: 'Robbin',
       email: 'robbin@example.com',
+      password: '123',
     },
     {
       id: 2,
-      name: 'Jan',
+      username: 'Jan',
       email: 'jan@example.com',
+      password: '1234'
     },
   ];
 
-  async findAll(): Promise<User[]> {
-    return this.users;
-  }
-
-  async findById(id: number): Promise<User | undefined> {
-    return this.users.find(user => user.id === id);
+  async findOne(username: string): Promise<User | undefined> {
+    return this.users.find(user => user.username === username);
   }
 }

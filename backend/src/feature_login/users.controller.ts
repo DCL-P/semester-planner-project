@@ -1,19 +1,16 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { UsersService } from './user.service.js';
+import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import { AuthService } from './auth.service.js';
 
-@Controller('users')
-export class UsersController {
+@Controller('auth')
+export class AuthController {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly authService: AuthService
   ) {}
 
-  @Get()
-  async getUsers() {
-    return this.usersService.getUsers();
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  signIn(@Body() signInDto: Record<string, any>) {
+    return this.authService.signIn(signInDto.username, signInDto.password)
   }
 
-  @Get(':id')
-  async getUser(@Param('id') id: string) {
-    return this.usersService.getUser(Number(id));
-  }
 }

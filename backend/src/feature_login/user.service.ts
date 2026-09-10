@@ -7,11 +7,7 @@ export class UsersService {
     private readonly usersRepository: UsersRepository,
   ) {}
 
-  async getUsers() {
-    return this.usersRepository.findAll();
-  }
-
-  async getUser(id: number) {
-    return this.usersRepository.findById(id);
+  async findOne(username: string) {
+    return this.usersRepository.findOne(username);
   }
 }
