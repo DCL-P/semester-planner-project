@@ -4,8 +4,12 @@ import { UsersRepository } from './user.repository.js';
 import { AuthController } from './users.controller.js';
 import { AuthService } from './auth.service.js';
 
-@Module({})
-export class UsersModule {
-    controllers: [AuthController]
-    providers: [AuthService, UsersService, UsersRepository]
-}
+@Module({
+    controllers: [AuthController],
+    providers: [
+        AuthService,
+        UsersService,
+        UsersRepository,
+    ],
+})
+export class UsersModule {}
