@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsersService } from "./user.service.js";
 import { CreateUserDto } from "./user.repository.js";
@@ -24,8 +26,13 @@ export class AuthService {
             throw new Error('Username already exists')
         }
 
-        // todo hash password
+        const hashedPassword = await bcrypt.hash(user.password, 10);
 
-        return this.usersService.create(user)
+        const createdUser = await this.usersService.create({
+            ...user,
+            password: hashedPassword
+        })
+
+        return createdUser
     }
 }

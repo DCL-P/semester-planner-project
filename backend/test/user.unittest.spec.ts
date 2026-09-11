@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { vi } from 'vitest';
+import bcrypt from 'bcrypt';
 
 import { UsersService } from '../src/feature_login/user.service.js';
 import { UsersRepository } from '../src/feature_login/user.repository.js';
@@ -92,20 +93,24 @@ describe('AuthService', () => {
     expect(mockUsersService.findOne).toHaveBeenCalledWith('Robbin');
   });
 
- it('should create an account', async () => {
+ it('should create an account with a hashed password', async () => {
     const newUser = {
       username: 'Robert',
       email: 'robbintest@example.com',
       password: '12345',
     };
 
-    // The user doesnt exist
+    const hashedPassword = 'hashed-password';
+
     mockUsersService.findOne.mockResolvedValue(undefined);
 
-    // this is what userservice returns
+    vi.spyOn(bcrypt, 'hash').mockResolvedValue(hashedPassword as never);
+
     mockUsersService.create.mockResolvedValue({
       id: 3,
-      ...newUser,
+      username: newUser.username,
+      email: newUser.email,
+      password: hashedPassword,
     });
 
     const result = await service.signUp(newUser);
@@ -114,12 +119,18 @@ describe('AuthService', () => {
       id: 3,
       username: 'Robert',
       email: 'robbintest@example.com',
-      password: '12345',
+      password: hashedPassword,
     });
 
     expect(mockUsersService.findOne).toHaveBeenCalledWith('Robert');
 
-    expect(mockUsersService.create).toHaveBeenCalledWith(newUser);
+    expect(mockUsersService.create).toHaveBeenCalledWith({
+      username: 'Robert',
+      email: 'robbintest@example.com',
+      password: hashedPassword,
+    });
+
+    expect(bcrypt.hash).toHaveBeenCalledWith('12345', 10);
   });
 
   it('should not create an account if username already exists', async () => {
