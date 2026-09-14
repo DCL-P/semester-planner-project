@@ -9,7 +9,7 @@ import { AuthService } from './auth.service.js';
     providers: [
         AuthService,
         UsersService,
-        UsersRepository,
+        UsersRepository
     ],
 })
 export class UsersModule {}
