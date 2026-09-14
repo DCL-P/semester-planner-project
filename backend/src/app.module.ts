@@ -2,6 +2,12 @@ import { Module } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/user.module.js'
+
+
+
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -14,6 +20,16 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: 'YOUR_APP_SECRET',
       serviceId: 'backend',
     }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'better-sqlite3',
+      database: './data/app.sqlite',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
