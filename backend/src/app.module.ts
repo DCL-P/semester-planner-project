@@ -6,6 +6,8 @@ import { ActivitiesModule } from './feature_user_activities/activities.module.js
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './feature_login/users.module.js';
+import { User } from './feature_login/users.entities.js'
+import { Activity } from './feature_user_activities/activities.entities.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -27,6 +29,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([User, Activity]),
     UsersModule
   ],
   controllers: [AppController],
