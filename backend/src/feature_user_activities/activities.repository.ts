@@ -43,4 +43,14 @@ export class ActivitiesRepository {
         
         this.activities.splice(index, 1);
     }
+
+    async create(activity: ActivitiesDto): Promise<Activities> {
+        const newActivity: Activities = {
+            id: this.activities.length + 1,
+            ...activity
+        }
+
+        this.activities.push(newActivity);
+        return newActivity;
+    }
 }
