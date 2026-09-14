@@ -17,4 +17,10 @@ export class ActivitiesController {
     async create(@Body() createActivityDto: ActivitiesDto) {
         return this.activitiesService.create(createActivityDto)
     }
+
+    @HttpCode(HttpStatus.OK)
+    @Post('/update/:id')
+    async update(@Param('id', ParseIntPipe) id: number, @Body() updateActivityDto: ActivitiesDto)  {
+        return this.activitiesService.update(id, updateActivityDto)
+    }
 }

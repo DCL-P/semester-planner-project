@@ -34,6 +34,18 @@ export class ActivitiesRepository {
         return this.activities.find(activity => activity.id === id)
     }
 
+    async update(id: number, activity: ActivitiesDto): Promise<Activities> {
+        const record = await this.findOne(id);
+
+        if(!record) throw new Error("Activity not found")
+
+        record.title = activity.title;
+        record.description = activity.description;
+        record.date = activity.date;
+
+        return record;
+    }   
+
     async remove(id: number): Promise<void> {
         const index = this.activities.findIndex(activity => activity.id === id);
 

@@ -17,4 +17,13 @@ export class ActivitiesService {
 
         return this.activitiesRepository.create(activity);
     }
+
+    async update(id: number, activitiesDto: ActivitiesDto) {
+
+        if (!id) throw new Error("Couldn't find the activity");
+        if (!activitiesDto.title) throw new Error("Activity doesn't have a title");
+
+        return this.activitiesRepository.update(id, activitiesDto);
+
+    }
 }
