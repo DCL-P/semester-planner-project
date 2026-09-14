@@ -12,6 +12,6 @@ export class AppController {
 
   @Post()
   confirm(){
-    return {message: "WHATS GOOD FRONTEND"};
+    return {message: "hello front-end :D"};
   }
 }
