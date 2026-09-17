@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Render } from '@nestjs/common';
 import { AuthService } from './auth.service.js';
 import type { CreateUserDto } from './user.repository.js';
 
@@ -8,14 +8,28 @@ export class AuthController {
     private readonly authService: AuthService
   ) {}
 
+  @Get('/login')
+  @Render('partials/login')
+  login() {
+    return {};
+  }
+
+  @Get('/signup')
+  @Render('partials/signup')
+  signup() {
+    return {};
+  }
+
   @HttpCode(HttpStatus.OK)
   @Post('login')
+  @Render('partials/planner')
   signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.username, signInDto.password)
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('signup')
+  @Render('index')
   signUp(@Body() signUpDto: CreateUserDto) {
     return this.authService.signUp(signUpDto);
   }

@@ -1,10 +1,14 @@
-import { Controller, HttpCode, HttpStatus, Delete, Body, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Controller, HttpCode, HttpStatus, Delete, Body, Param, ParseIntPipe, Post, Render, Get } from "@nestjs/common";
 import { ActivitiesService } from "./activities.service.js";
 import type { ActivitiesDto } from "./activities.repository.js";
 
 @Controller('activities')
 export class ActivitiesController {
     constructor(private readonly activitiesService: ActivitiesService) {}
+
+
+    @Get('/create')
+    @Render('partials/')
 
     @HttpCode(HttpStatus.OK)
     @Delete(':id')

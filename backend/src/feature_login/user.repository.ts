@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User as UserEntity } from './users.entities.js';
 
 export interface User {
   id: number;
@@ -15,32 +18,21 @@ export interface CreateUserDto {
 
 @Injectable()
 export class UsersRepository {
-  private readonly users: User[] = [
-    {
-      id: 1,
-      username: 'Robbin',
-      email: 'robbin@example.com',
-      password: '123',
-    },
-    {
-      id: 2,
-      username: 'Jan',
-      email: 'jan@example.com',
-      password: '1234'
-    },
-  ];
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
+  ) {}
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+    const user = await this.usersRepository.findOne({
+      where: { username },
+    });
+
+    return user ?? undefined;
   }
 
-  async create(user: CreateUserDto) : Promise<User> {
-    const newUser: User = {
-      id: this.users.length + 1,
-      ...user   
-    }
-
-    this.users.push(newUser)
-    return newUser
+  async create(user: CreateUserDto): Promise<User> {
+    const newUser = this.usersRepository.create(user);
+    return this.usersRepository.save(newUser);
   }
 }
