@@ -25,7 +25,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
-      database: './data/app.sqlite',
+      database: '../code/data/app.sqlite',
       autoLoadEntities: true,
       synchronize: true,
     }),
