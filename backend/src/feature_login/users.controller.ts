@@ -2,26 +2,14 @@ import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Render } from
 import { AuthService } from './auth.service.js';
 import type { CreateUserDto } from './user.repository.js';
 
-@Controller('auth')
+@Controller()
 export class AuthController {
   constructor(
     private readonly authService: AuthService
   ) {}
 
-  @Get('/login')
-  @Render('partials/login')
-  login() {
-    return {};
-  }
-
-  @Get('/signup')
-  @Render('partials/signup')
-  signup() {
-    return {};
-  }
-
   @HttpCode(HttpStatus.OK)
-  @Post('login')
+  @Post('redirect/planner')
   @Render('partials/planner')
   signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.username, signInDto.password)
