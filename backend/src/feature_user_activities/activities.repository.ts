@@ -1,68 +1,89 @@
 import { Injectable } from "@nestjs/common";
+import { ActivitiesService } from "./activities.service.js"
+import { Activity } from "./activities.entities.js"
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
 
 export interface Activities {
     id: number,
     title: string,
-    description: string
-    date: Date
+    week: number,
+    description: string,
+    start: Date,
+    end: Date
 }
 
 export interface ActivitiesDto {
     title: string,
+    week: number,
     description: string,
-    date: Date
+    start: Date,
+    end: Date
 }
 
 @Injectable()
 export class ActivitiesRepository {
-    private readonly activities: Activities[] = [
-        {
-            id: 1,
-            title: "Online les",
-            description: "Online les om 09:00",
-            date: new Date()
-        },
-        {
-            id: 2,
-            title: "Gilde backend",
-            description: "Gilde voor de backend om 12:00",
-            date: new Date()
-        }
-    ];
 
-    async findOne(id: number): Promise<Activities | undefined> {
-        return this.activities.find(activity => activity.id === id)
-    }
+    constructor(
+        @InjectRepository(Activity)
+        private readonly activitiesRepository: Repository<Activity>,
+    ) {}
 
+    // [X]
     async update(id: number, activity: ActivitiesDto): Promise<Activities> {
-        const record = await this.findOne(id);
+        const record = await this.activitiesRepository.findOneBy({id});
 
         if(!record) throw new Error("Activity not found")
 
         record.title = activity.title;
+        // to fetch user we'll need a session!
         record.description = activity.description;
-        record.date = activity.date;
+        record.week = activity.week;
+        record.start = activity.start;
+        record.end = activity.end;
 
         return record;
     }   
 
     async remove(id: number): Promise<void> {
-        const index = this.activities.findIndex(activity => activity.id === id);
+        const activity = await this.activitiesRepository.findOneBy({ id });
 
-        if (index === -1) {
+        if (!activity) {
             throw new Error("Activity not found")
         }
         
-        this.activities.splice(index, 1);
+        await this.activitiesRepository.remove(activity);
     }
 
+    //[X]
     async create(activity: ActivitiesDto): Promise<Activities> {
-        const newActivity: Activities = {
-            id: this.activities.length + 1,
-            ...activity
-        }
+        const new_activity = this.activitiesRepository.create({
+            title: activity.title,
+            week: activity.week,
+            description: activity.description,
+            start: activity.start,
+            end: activity.end
 
-        this.activities.push(newActivity);
-        return newActivity;
+        })
+
+        const saved_activity = await this.activitiesRepository.save(new_activity);
+        return saved_activity;
+    }
+
+    async WeekActivities(): Promise<Activities> {
+
+        
+        const new_activity = this.activitiesRepository.create({
+            title: activity.title,
+            week: activity.week,
+            description: activity.description,
+            start: activity.start,
+            end: activity.end
+
+        })
+
+        const saved_activity = await this.activitiesRepository.save(new_activity);
+        return saved_activity;
     }
 }
