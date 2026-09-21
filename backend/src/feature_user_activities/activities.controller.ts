@@ -6,23 +6,29 @@ import type { ActivitiesDto } from "./activities.repository.js";
 export class ActivitiesController {
     constructor(private readonly activitiesService: ActivitiesService) {}
 
+    @Get('/create-activity')
+    @Render('partials/create-task.hbs')
+    activity() {
+        return {};
+    }
 
-    @Get('/create')
-    @Render('partials/')
+    @Get('/overview')
+    @Render('partials/week-overview.hbs')
+    placeholder() {
+    return {};
+    }
 
-    @HttpCode(HttpStatus.OK)
     @Delete(':id')
     async remove(@Param('id', ParseIntPipe) id: number){
         return this.activitiesService.remove(id);
     }
 
-    @HttpCode(HttpStatus.OK)
     @Post('/create')
+    @Render('partials/create-task.hbs')
     async create(@Body() createActivityDto: ActivitiesDto) {
         return this.activitiesService.create(createActivityDto)
     }
 
-    @HttpCode(HttpStatus.OK)
     @Post('/update/:id')
     async update(@Param('id', ParseIntPipe) id: number, @Body() updateActivityDto: ActivitiesDto)  {
         return this.activitiesService.update(id, updateActivityDto)
