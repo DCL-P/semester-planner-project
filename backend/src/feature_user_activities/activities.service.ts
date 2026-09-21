@@ -11,8 +11,8 @@ export class ActivitiesService {
 
     async create(activity: ActivitiesDto) {
 
-        if(!activity.title) {
-            throw new Error("Activity doesn't have a title")
+        if(!activity) {
+            throw new Error("No activity found")
         }
 
         return this.activitiesRepository.create(activity);
@@ -21,7 +21,6 @@ export class ActivitiesService {
     async update(id: number, activitiesDto: ActivitiesDto) {
 
         if (!id) throw new Error("Couldn't find the activity");
-        if (!activitiesDto.title) throw new Error("Activity doesn't have a title");
 
         return this.activitiesRepository.update(id, activitiesDto);
 
