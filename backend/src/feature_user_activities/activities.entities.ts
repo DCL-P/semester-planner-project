@@ -9,7 +9,7 @@ export class Activity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     userID: number;
 
     @Column()
@@ -19,5 +19,11 @@ export class Activity {
     description: string;
 
     @Column()
-    date: Date;
+    week: number;
+
+    @Column()
+    start: Date;
+
+    @Column()
+    end: Date;
 }
