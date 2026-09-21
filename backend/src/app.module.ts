@@ -30,7 +30,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       synchronize: true,
     }),
     TypeOrmModule.forFeature([User, Activity]),
-    UsersModule
+    UsersModule,
+    ActivitiesModule
   ],
   controllers: [AppController],
   providers: [AppService],
