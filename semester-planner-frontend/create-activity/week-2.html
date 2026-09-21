@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Activiteit aanmaken voor Week 1">
-    <title>Activiteit aanmaken - Week 1</title>
-    <link rel="stylesheet" href="../style.css">
+    <meta name="description" content="Nieuwe week aanmaken">
+    <title>Nieuwe week - Semester Planner</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <header class="topbar">
 
-        <a href="../planner.html" class="logo">
+        <a href="planner.html" class="logo">
 
             <span class="brand-icon small">
                 SP
@@ -25,12 +25,24 @@
 
         </a>
 
+        <nav class="navigation">
+
+            <a href="planner.html">
+                Overzicht
+            </a>
+
+            <a href="create-week.html" class="active">
+                Nieuwe week
+            </a>
+
+        </nav>
+
     </header>
 
     <main class="container narrow">
 
-        <a href="../weeks/week-1.html" class="back-link">
-            ← Terug naar Week 1
+        <a href="planner.html" class="back-link">
+            ← Terug naar overzicht
         </a>
 
         <div class="form-card">
@@ -44,15 +56,15 @@
                 <div>
 
                     <span class="eyebrow">
-                        WEEK 01
+                        NIEUWE PLANNING
                     </span>
 
                     <h2>
-                        Activiteit aanmaken
+                        Week aanmaken
                     </h2>
 
                     <p>
-                        Voeg een nieuwe activiteit toe aan je week.
+                        Voeg een nieuwe week toe aan je semester.
                     </p>
 
                 </div>
@@ -63,70 +75,76 @@
 
                 <div class="input-group">
 
-                    <label for="activity-title-1">
+                    <label for="week-title">
                         Titel
                     </label>
 
                     <input
-                        id="activity-title-1"
+                        id="week-title"
                         type="text"
-                        placeholder="Bijv. Portfolio maken"
+                        placeholder="Bijv. Week 3 - Frontend"
                     >
 
                 </div>
 
                 <div class="input-group">
 
-                    <label for="activity-description-1">
+                    <label for="week-description">
                         Beschrijving
                     </label>
 
                     <textarea
-                        id="activity-description-1"
+                        id="week-description"
                         rows="6"
-                        placeholder="Wat moet je doen?"
+                        placeholder="Beschrijf wat je deze week wilt bereiken..."
                     ></textarea>
 
                 </div>
 
-                <div class="input-group">
+                <div class="input-row">
 
-                    <label for="activity-status-1">
-                        Status
-                    </label>
+                    <div class="input-group">
 
-                    <select id="activity-status-1">
+                        <label for="week-start">
+                            Startdatum
+                        </label>
 
-                        <option>
-                            Open
-                        </option>
+                        <input
+                            id="week-start"
+                            type="date"
+                        >
 
-                        <option>
-                            Bezig
-                        </option>
+                    </div>
 
-                        <option>
-                            Afgerond
-                        </option>
+                    <div class="input-group">
 
-                    </select>
+                        <label for="week-end">
+                            Einddatum
+                        </label>
+
+                        <input
+                            id="week-end"
+                            type="date"
+                        >
+
+                    </div>
 
                 </div>
 
                 <div class="form-actions">
 
                     <a
-                        href="../weeks/week-1.html"
+                        href="planner.html"
                         class="button button-secondary"
                     >
                         Annuleren
                     </a>
 
                     <a
-                        href="../weeks/week-1.html"
+                        href="planner.html"
                         class="button button-primary"
                     >
-                        Activiteit opslaan
+                        Week opslaan
                     </a>
 
                 </div>
@@ -137,7 +155,7 @@
 
     </main>
 
-    <script src="../script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 
