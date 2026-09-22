@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nieuwe week aanmaken">
+    <title>Nieuwe Activiteit - Semester Planner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <a href="planner.html" class="logo">
+
+            <span class="brand-icon small">
+                SP
+            </span>
+
+            <span>
+                Semester Planner
+            </span>
+
+        </a>
+
+        <nav class="navigation">
+
+            <a href="planner.html">
+                Overzicht
+            </a>
+
+            {{!-- <a href="create-week.html" class="active">
+                Nieuwe activiteit
+            </a> --}}
+
+        </nav>
+
+    </header>
+
+    <main class="container narrow">
+
+        <a href="planner.html" class="back-link">
+            ← Terug naar overzicht
+        </a>
+
+        <div class="form-card">
+
+            <div class="form-header">
+
+                <div class="form-icon">
+                    +
+                </div>
+
+                <div>
+
+                    <span class="eyebrow">
+                        NIEUWE PLANNING
+                    </span>
+
+                    <h2>
+                        Activiteit aanmaken
+                    </h2>
+
+                    <p>
+                        Voeg een nieuwe activiteit toe aan je semester.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form class="form" method="POST" action="/activities/change">
+
+
+                <div class="input-group">
+
+                    <label for="activity-number">
+                        Week
+                    </label>
+
+                    <input
+                        id="week-number-1"
+                        type="number"
+                        placeholder="{{task.week}}"
+                        name="week"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="activity-title">
+                        Titel
+                    </label>
+
+                    <input
+                        id="activity-title-2"
+                        type="text"
+                        placeholder="{{task.title}}"
+                        name="title"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="activity-description">
+                        Beschrijving
+                    </label>
+
+                    <textarea
+                        id="week-description-3"
+                        rows="6"
+                        placeholder="{{task.description}}"
+                        name="description"
+                    ></textarea>
+
+                </div>
+
+                <div class="input-row">
+
+                    <div class="input-group">
+
+                        <label for="activity-start">
+                            Startdatum
+                        </label>
+
+                        <input
+                            id="week-start-4"
+                            type="date"
+                            name="start"
+                            value="{{convertedStartDate}}"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label for="activity-end-5">
+                            Einddatum
+                        </label>
+
+                        <input
+                            id="activity-end"
+                            type="date"
+                            name="end"
+                            value="{{convertedEndDate}}"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <a
+                        href="planner.html"
+                        class="button button-secondary"
+                    >
+                        Annuleren
+                    </a>
+
+                    <button 
+                        type="submit"
+                        class="button button-primary"
+                        formaction="/activities/update/{{task.id}}"
+                    >
+                        bijwerken
+                    </button>
+
+                    <button 
+                        type="submit"
+                        class="button button-primary"
+                        formaction="/activities/delete/{{task.id}}"
+                    >
+                        verwijderen
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
