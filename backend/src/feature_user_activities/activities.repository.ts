@@ -43,7 +43,7 @@ export class ActivitiesRepository {
         record.start = activity.start;
         record.end = activity.end;
 
-        return record;
+        return this.activitiesRepository.save(record);
     }   
 
     async remove(id: number): Promise<void> {
@@ -71,19 +71,52 @@ export class ActivitiesRepository {
         return saved_activity;
     }
 
-    async WeekActivities(): Promise<Activities> {
+    async fetchAll() {
 
         
-        const new_activity = this.activitiesRepository.create({
-            title: activity.title,
-            week: activity.week,
-            description: activity.description,
-            start: activity.start,
-            end: activity.end
+        const all_activities = this.activitiesRepository.find()
+        
+        return all_activities;
+    }
 
-        })
+    async fetchByWeek(week: number) {
+        const allTasks = this.activitiesRepository.find()
 
-        const saved_activity = await this.activitiesRepository.save(new_activity);
-        return saved_activity;
+        let allWeekTasks = [];
+
+        for(const task of await allTasks){
+            if(task.week === week){
+                allWeekTasks.push(task);
+            }
+        }
+
+        return allWeekTasks
+    }
+
+    async fetchAllWeeks(){
+        const allTasks = this.activitiesRepository.find()
+
+        let allWeeks: any = []
+
+        for(const task of await allTasks){
+            if(!allWeeks.includes(task.week)){
+                allWeeks.push(task.week)
+            }
+        }
+
+        return allWeeks;
+
+    }
+
+    async fetchWeekTasks(week_param: number){
+        const allTasks = this.activitiesRepository.findBy({week: week_param});
+
+        return allTasks;
+    }
+
+    async fetchByID(ID: number){
+        const task = this.activitiesRepository.findOneBy({id: ID});
+
+        return task;
     }
 }
