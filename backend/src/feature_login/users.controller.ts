@@ -8,6 +8,12 @@ export class AuthController {
     private readonly authService: AuthService
   ) {}
 
+  @Get('/auth/signup')
+  @Render('partials/signup')
+  signUpPage() {
+    return {};
+  }
+
   @HttpCode(HttpStatus.OK)
   @Post('redirect/planner')
   @Render('partials/planner')
@@ -16,8 +22,8 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('signup')
-  @Render('index')
+  @Post('/auth/signup')
+  @Render('partials/planner')
   signUp(@Body() signUpDto: CreateUserDto) {
     return this.authService.signUp(signUpDto);
   }

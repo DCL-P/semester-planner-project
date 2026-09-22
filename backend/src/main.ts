@@ -12,13 +12,13 @@ async function bootstrap() {
 
   httpAdapter.set(
     'views',
-    '/home/runix/Desktop/HU/semester_1/project-2/code/backend/views',
+    '/home/robbin/school/semester-1/semester-planner/backend/views',
   );
 
   httpAdapter.use(
     '/static',
     express.static(
-      '/home/runix/Desktop/HU/semester_1/project-2/code/backend/views/static',
+      '/home/robbin/school/semester-1/semester-planner/backend/views/static',
     ),
   );
 

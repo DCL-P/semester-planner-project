@@ -71,19 +71,19 @@ export class ActivitiesRepository {
         return saved_activity;
     }
 
-    async WeekActivities(): Promise<Activities> {
+    // async WeekActivities(): Promise<Activities> {
 
         
-        const new_activity = this.activitiesRepository.create({
-            title: activity.title,
-            week: activity.week,
-            description: activity.description,
-            start: activity.start,
-            end: activity.end
+    //     const new_activity = this.activitiesRepository.create({
+    //         title: activity.title,
+    //         week: activity.week,
+    //         description: activity.description,
+    //         start: activity.start,
+    //         end: activity.end
 
-        })
+    //     })
 
-        const saved_activity = await this.activitiesRepository.save(new_activity);
-        return saved_activity;
-    }
+    //     const saved_activity = await this.activitiesRepository.save(new_activity);
+    //     return saved_activity;
+    // }
 }
