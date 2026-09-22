@@ -145,78 +145,42 @@
 
         <div class="week-grid">
 
-            <a href="/activities/overview" class="week-card">
+            {{#each fetchedWeeks}}
 
-                <div class="week-top">
+                <a href="/activities/overview/week/{{this}}" class="week-card">
+                    <div class="week-top">
 
-                    <span class="week-number">
-                        01
-                    </span>
+                        <span class="week-number">
+                            {{this}}
+                        </span>
 
-                    <span class="status status-blue">
-                        Actief
-                    </span>
+                        <span class="status status-blue">
+                            Actief
+                        </span>
 
-                </div>
+                    </div>
 
-                <h3>
-                    Week 1
-                </h3>
+                    <h3>
+                        Week {{this}}
+                    </h3>
 
-                <p>
-                    Start van het semester
-                </p>
+                    <p>
+                        Start van het semester
+                    </p>
 
-                <div class="week-footer">
+                    <div class="week-footer">
 
-                    <span>
-                        2 activiteiten
-                    </span>
+                        <span>
+                            ? activiteiten
+                        </span>
 
-                    <span class="arrow">
-                        →
-                    </span>
+                        <span class="arrow">
+                            →
+                        </span>
 
-                </div>
-
-            </a>
-
-            <a href="/activities/overview" class="week-card">
-
-                <div class="week-top">
-
-                    <span class="week-number">
-                        02
-                    </span>
-
-                    <span class="status status-green">
-                        Gepland
-                    </span>
-
-                </div>
-
-                <h3>
-                    Week 2
-                </h3>
-
-                <p>
-                    Frontend development
-                </p>
-
-                <div class="week-footer">
-
-                    <span>
-                        2 activiteiten
-                    </span>
-
-                    <span class="arrow">
-                        →
-                    </span>
-
-                </div>
-
-            </a>
-
+                    </div>
+                </a>
+            {{/each}}
         </div>
 
     </main>
