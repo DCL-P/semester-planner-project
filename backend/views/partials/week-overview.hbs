@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Week 2 - Semester Planner">
     <title>Week 2 - Semester Planner</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -50,11 +50,11 @@
             <div>
 
                 <span class="eyebrow">
-                    WEEK 02
+                    WEEK {{current_week}}
                 </span>
 
                 <h2>
-                    Week 2
+                    Week {{current_week}}
                 </h2>
 
                 <p>
@@ -62,13 +62,13 @@
                 </p>
 
             </div>
-
+{{!-- 
             <a
                 href="../create-activity/week-2.html"
                 class="button button-primary"
             >
                 + Create activiteit
-            </a>
+            </a> --}}
 
         </div>
 
@@ -82,67 +82,41 @@
                         Activiteiten
                     </h3>
 
-                    <span class="counter">
+                    {{!-- <span class="counter">
                         2
-                    </span>
+                    </span> --}}
 
                 </div>
 
                 <div class="activity-list">
+                    {{#each fetchedWeekTasks}}
+                                            <a
+                            href="/activities/overview/task/{{id}}"
+                            class="activity-item"
+                        >
 
-                    <a
-                        href="../activities/activity-3.html"
-                        class="activity-item"
-                    >
+                            <span class="activity-status progress">
+                                •
+                            </span>
 
-                        <span class="activity-status progress">
-                            •
-                        </span>
+                            <span class="activity-info">
 
-                        <span class="activity-info">
+                                <strong>
+                                    {{title}}
+                                </strong>
 
-                            <strong>
-                                HTML & CSS oefenen
-                            </strong>
+                                <small>
+                                    {{description}}
+                                </small>
 
-                            <small>
-                                Een responsive pagina bouwen
-                            </small>
+                            </span>
 
-                        </span>
+                            <span class="activity-arrow">
+                                →
+                            </span>
 
-                        <span class="activity-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-                    <a
-                        href="../activities/activity-4.html"
-                        class="activity-item"
-                    >
-
-                        <span class="activity-status pending">
-                            ○
-                        </span>
-
-                        <span class="activity-info">
-
-                            <strong>
-                                Frontend portfolio verbeteren
-                            </strong>
-
-                            <small>
-                                Projecten en vaardigheden toevoegen
-                            </small>
-
-                        </span>
-
-                        <span class="activity-arrow">
-                            →
-                        </span>
-
-                    </a>
+                        </a>
+                    {{/each}}
 
                 </div>
 
@@ -162,7 +136,7 @@
 
                 </div>
 
-                <p>
+                {{!-- <p>
                     1 van 2 activiteiten in uitvoering.
                 </p>
 
@@ -171,7 +145,7 @@
                     class="text-link"
                 >
                     + Activiteit toevoegen
-                </a>
+                </a> --}}
 
             </aside>
 
