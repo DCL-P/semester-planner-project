@@ -25,4 +25,27 @@ export class ActivitiesService {
         return this.activitiesRepository.update(id, activitiesDto);
 
     }
+
+    async fetchAll(){
+        return this.activitiesRepository.fetchAll();
+    }
+
+    async fetchAllWeeks(){
+        const allWeeks = this.activitiesRepository.fetchAllWeeks();
+
+        console.log(allWeeks);
+        return allWeeks;
+    }
+
+    async fetchWeekTasks(week: number){
+        const allTasks = this.activitiesRepository.fetchWeekTasks(week);
+
+        return allTasks;
+    }
+
+    async fetchOneByID(ID: number){
+        const task = this.activitiesRepository.fetchByID(ID);
+
+        return task;
+    }
 }
