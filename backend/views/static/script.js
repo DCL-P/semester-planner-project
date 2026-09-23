@@ -34,15 +34,44 @@ if (form) {
     });
 }
 
+const formSignIn = document.querySelector(".form-sign-in")
+
+if (formSignIn) {
+    formSignIn.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(formSignIn);
+
+        const response = await fetch(`/auth/signin`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+
+            errorMessage.textContent = error.message;
+            errorContainer.classList.add("show");
+
+            setTimeout(() => {
+                errorContainer.classList.remove("show");
+            }, 5000);
+
+            return;
+        }
+        window.location.href = "/";
+    })
+}
+
 console.log("SCRIPT GELADEN");
 
 const formActivity = document.querySelector(".activity-form");
 
-console.log("FORM:", formActivity);
-
 if (formActivity) {
     formActivity.addEventListener("submit", async (event) => {
-        console.log("SUBMIT EVENT");
         event.preventDefault();
 
         const id = formActivity.dataset.id;

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Render } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Render, Redirect } from '@nestjs/common';
 import { AuthService } from './auth.service.js';
 import { ActivitiesService } from '../feature_user_activities/activities.service.js';
 import type { CreateUserDto } from './user.repository.js';
@@ -17,14 +17,13 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('redirect/planner')
-  @Render('partials/planner')
+  @Post('/auth/signin')
+  @Redirect('/activities/planner')
   async signIn(@Body() signInDto: Record<string, any>) {
-    const user = this.authService.signIn(signInDto.username, signInDto.password);
+    const user = await this.authService.signIn(signInDto.username, signInDto.password);
 
     const fetchedWeeks = await this.activitiesService.fetchAllWeeks();
 
-    console.log(fetchedWeeks);
     return {
         user,
         fetchedWeeks,

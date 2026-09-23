@@ -37,7 +37,7 @@
                 Log in om je semester, weken en activiteiten te beheren.
             </p>
 
-            <form class="form" method="POST" action="/redirect/planner">
+            <form class="form form-sign-in" method="POST" action="/auth/signin">
 
                 <div class="input-group">
                     <label for="username">
@@ -79,6 +79,10 @@
         </div>
 
     </section>
+
+    <div id="error-container">
+        <p id="error-message"></p>
+    </div>
 
     <script src="./static/script.js"></script>
 

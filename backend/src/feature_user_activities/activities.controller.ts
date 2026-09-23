@@ -16,10 +16,15 @@ export class ActivitiesController {
     @Render('partials/planner.hbs')
     async planner() {
         const allWeeks = await this.activitiesService.fetchAllWeeks();
-        console.log(`all weeks: ${allWeeks}`)
+        const allTasks = await this.activitiesService.fetchAll();
+
+        const currentMonth = new Date().getMonth() + 1;
+        const semester = currentMonth >= 2 && currentMonth <= 6 ? 2 : 1;
 
         return {
-            fetchedWeeks: allWeeks
+            fetchedWeeks: allWeeks,
+            fetchedTasks: allTasks,
+            semesterValue: semester
         };
     }
 
