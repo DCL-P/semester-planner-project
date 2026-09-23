@@ -15,12 +15,20 @@ export class ActivitiesService {
             throw new Error("No activity found")
         }
 
+        if(!activity.week){
+            throw new Error("No week added")
+        }
+
         return this.activitiesRepository.create(activity);
     }
 
     async update(id: number, activitiesDto: ActivitiesDto) {
 
         if (!id) throw new Error("Couldn't find the activity");
+
+        if (!activitiesDto.week && !activitiesDto.title && !activitiesDto.description && !activitiesDto.week && !activitiesDto.end) {
+            throw new Error("You're missing some fields")
+        }
 
         return this.activitiesRepository.update(id, activitiesDto);
 

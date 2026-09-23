@@ -1,4 +1,4 @@
-import { Controller, HttpCode, HttpStatus, Delete, Body, Param, ParseIntPipe, Post, Render, Get } from "@nestjs/common";
+import { Controller, HttpCode, HttpStatus, Delete, Body, Param, ParseIntPipe, Post, Render, Get, Redirect } from "@nestjs/common";
 import { ActivitiesService } from "./activities.service.js";
 import type { ActivitiesDto } from "./activities.repository.js";
 
@@ -48,17 +48,20 @@ export class ActivitiesController {
     }
 
     @Post('/delete/:id')
+    @Redirect('/activities/planner')
     async remove(@Param('id', ParseIntPipe) id: number){
         return this.activitiesService.remove(id);
     }
 
     @Post('/create')
+    @Redirect('/activities/planner')
     @Render('partials/create-task.hbs')
     async create(@Body() createActivityDto: ActivitiesDto) {
         return this.activitiesService.create(createActivityDto)
     }
 
     @Post('/update/:id')
+    @Redirect('/activities/planner')
     async update(@Param('id', ParseIntPipe) id: number, @Body() updateActivityDto: ActivitiesDto)  {
         return this.activitiesService.update(id, updateActivityDto)
     }
