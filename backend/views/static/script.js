@@ -62,7 +62,7 @@ if (formSignIn) {
 
             return;
         }
-        window.location.href = "/";
+        window.location.href = "/activities/planner";
     })
 }
 

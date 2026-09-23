@@ -18,17 +18,16 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('/auth/signin')
-  @Redirect('/activities/planner')
   async signIn(@Body() signInDto: Record<string, any>) {
-    const user = await this.authService.signIn(signInDto.username, signInDto.password);
-
-    const fetchedWeeks = await this.activitiesService.fetchAllWeeks();
+    const user = await this.authService.signIn(
+        signInDto.username,
+        signInDto.password
+    );
 
     return {
-        user,
-        fetchedWeeks,
+        user
     };
-  }
+  } 
 
   @HttpCode(HttpStatus.OK)
   @Post('/auth/signup')
