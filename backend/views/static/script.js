@@ -9,7 +9,10 @@ form.addEventListener("submit", async (event) => {
 
     const response = await fetch("/auth/signup", {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
     });
 
     if (!response.ok) {

@@ -12,13 +12,31 @@ export class ActivitiesController {
         return {};
     }
 
-    @Get('/overview')
+    @Get('/overview/week/:week')
     @Render('partials/week-overview.hbs')
-    placeholder() {
-    return {};
+    async fetchWeekTasks(@Param('week', ParseIntPipe) week: number) {
+        const allTasks = await this.activitiesService.fetchWeekTasks(week);
+        console.log(allTasks);
+        return {
+            fetchedWeekTasks: allTasks,
+            current_week: week
+        };
     }
 
-    @Delete(':id')
+    @Get('/overview/task/:taskID')
+    @Render('partials/task-overview')
+    async fetchTask(@Param('taskID', ParseIntPipe) taskID: any){
+        const fetched_task = await this.activitiesService.fetchOneByID(taskID);
+
+        return{
+            task: fetched_task,  
+            //need to be converted so HTML can interpret it and use values for placeholders in the form
+            convertedStartDate: fetched_task?.start.toISOString().split('T')[0]  ,  
+            convertedEndDate: fetched_task?.end.toISOString().split('T')[0]    
+        }
+    }
+
+    @Post('/delete/:id')
     async remove(@Param('id', ParseIntPipe) id: number){
         return this.activitiesService.remove(id);
     }
