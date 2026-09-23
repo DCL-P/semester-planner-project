@@ -37,7 +37,7 @@
                 Sign up om je semester, weken en activiteiten te beheren.
             </p>
 
-            <form class="form" method="POST" action="/auth/signup">
+            <form class="form" id="signup-form" method="POST" action="/auth/signup">
 
                 <div class="input-group">
                     <label for="name">
@@ -94,6 +94,10 @@
         </div>
 
     </section>
+
+    <div id="error-container">
+        <p id="error-message"></p>
+    </div>
 
     <script src="../static/script.js"></script>
 
