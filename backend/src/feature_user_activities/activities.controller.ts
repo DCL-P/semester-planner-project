@@ -12,6 +12,17 @@ export class ActivitiesController {
         return {};
     }
 
+    @Get('/planner')
+    @Render('partials/planner.hbs')
+    async planner() {
+        const allWeeks = await this.activitiesService.fetchAllWeeks();
+        console.log(`all weeks: ${allWeeks}`)
+
+        return {
+            fetchedWeeks: allWeeks
+        };
+    }
+
     @Get('/overview/week/:week')
     @Render('partials/week-overview.hbs')
     async fetchWeekTasks(@Param('week', ParseIntPipe) week: number) {
