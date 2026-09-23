@@ -59,7 +59,7 @@
 
             </div>
 
-            <form class="form" method="POST" action="/activities/change">
+            <form class="form activity-form" data-id="{{task.id}}" method="POST" action="/activities/change">
 
 
                 <div class="input-group">
@@ -152,7 +152,7 @@
 
                     <button 
                         type="submit"
-                        class="button button-primary"
+                        class="button button-primary button-update"
                         formaction="/activities/update/{{task.id}}"
                     >
                         bijwerken
@@ -172,7 +172,13 @@
 
         </div>
 
+        <div id="error-container">
+            <p id="error-message"></p>
+        </div>
+
     </main>
+
+    <script src="/static/script.js"></script>
 </body>
 
 </html>
